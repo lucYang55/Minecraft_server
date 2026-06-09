@@ -1,0 +1,27 @@
+[Unit]
+Description=Minecraft Java Server
+After=network.target
+Wants=network-online.target
+
+[Service]
+User=minecraft
+Group=minecraft
+WorkingDirectory=/opt/minecraft
+Environment="HOME=/opt/minecraft"
+
+ExecStart=/usr/lib/jvm/java-25-openjdk-amd64/bin/java -Xms1G -Xmx2G \
+  -XX:+UseG1GC \
+  -XX:+ParallelRefProcEnabled \
+  -XX:MaxGCPauseMillis=200 \
+  -jar server.jar nogui
+
+KillSignal=SIGTERM
+TimeoutStopSec=60
+Restart=on-failure
+RestartSec=10
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

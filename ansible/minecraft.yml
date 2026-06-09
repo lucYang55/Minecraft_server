@@ -1,0 +1,130 @@
+---
+- hosts: minecraft
+  become: yes
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install Java 25 and dependencies
+      apt:
+        name:
+          - openjdk-25-jre-headless
+          - wget
+          - curl
+          - jq
+        state: present
+
+    - name: Create minecraft system user
+      user:
+        name: minecraft
+        system: yes
+        create_home: yes
+        home: /opt/minecraft
+        shell: /bin/false
+
+    - name: Create minecraft directory
+      file:
+        path: /opt/minecraft
+        state: directory
+        owner: minecraft
+        group: minecraft
+        mode: '0755'
+
+    - name: Fetch Mojang version 
+      uri:
+        url: https://launchermeta.mojang.com/mc/game/version_manifest.json
+        return_content: yes
+      register: version_manifest
+
+    - name: Set latest Minecraft version
+      set_fact:
+        mc_latest_version: "{{ (version_manifest.content | from_json).latest.release }}"
+
+    - name: Set version metadata URL
+      set_fact:
+        mc_version_meta_url: >-
+          {{
+            (version_manifest.content | from_json).versions
+            | selectattr('id', 'equalto', mc_latest_version)
+            | map(attribute='url')
+            | first
+          }}
+
+    - name: Fetch version metadata
+      uri:
+        url: "{{ mc_version_meta_url }}"
+        return_content: yes
+      register: version_meta
+
+    - name: Set server JAR URL
+      set_fact:
+        mc_server_jar_url: "{{ (version_meta.content | from_json).downloads.server.url }}"
+
+    - name: Download Minecraft server JAR
+      get_url:
+        url: "{{ mc_server_jar_url }}"
+        dest: /opt/minecraft/server.jar
+        owner: minecraft
+        group: minecraft
+        mode: '0644'
+
+    - name: Accept Minecraft EULA
+      copy:
+        dest: /opt/minecraft/eula.txt
+        content: "eula=true\n"
+        owner: minecraft
+        group: minecraft
+        mode: '0644'
+
+    - name: Create server.properties with sane defaults
+      copy:
+        dest: /opt/minecraft/server.properties
+        owner: minecraft
+        group: minecraft
+        mode: '0644'
+        content: |
+          server-port=25565
+          difficulty=normal
+          gamemode=survival
+          max-players=10
+          online-mode=true
+          view-distance=10
+          motd=Minecraft Server (Auto-Deployed)
+
+    - name: Install systemd service
+      template:
+        src: templates/minecraft.service.j2
+        dest: /etc/systemd/system/minecraft.service
+        mode: '0644'
+
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
+
+    - name: Enable minecraft service
+      systemd:
+        name: minecraft
+        enabled: yes
+
+    - name: Remove stale FIFO if present
+      file:
+        path: /opt/minecraft/server_stdin
+        state: absent
+
+    - name: Start minecraft service
+      systemd:
+        name: minecraft
+        state: restarted
+
+    - name: Confirm service is running
+      systemd:
+        name: minecraft
+      register: mc_service_status
+
+    - name: Show service status
+      debug:
+        msg: "Minecraft state: {{ mc_service_status.status.ActiveState }}"
