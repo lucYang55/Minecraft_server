@@ -1,0 +1,15 @@
+# Terraform state and secrets
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+
+# Ansible generated inventory
+ansible/inventory.ini
+
+# SSH keys
+*.pem
+*.key
+
+# OS clutter
+.DS_Store
