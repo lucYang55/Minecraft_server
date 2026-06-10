@@ -1,4 +1,26 @@
 ---
+
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: Used documentation to build my ansible script. Code snippets in the documentation were adapted for code 
+# Source URL: https://docs.ansible.com/
+
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: Used documentation for (set_fact command) Code snippets in the documentation were adapted for code 
+# Source URL: https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/set_fact_module.html
+
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: Used documentation for URL portion of script to pull the latest minecraft version and use its metadata.
+# Code snippets in the documentation were adapted for this portion
+# Source URL: https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/uri_module.html
+
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: Used documentation to build the template for the systemd process
+# Source URL: https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/template_module.html
+
 - hosts: minecraft
   become: yes
 

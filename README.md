@@ -143,9 +143,31 @@ To destroy all AWS resources created by Terraform and avoid incurring charges:
 ## Resources and Sources
 
 - [Terraform AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+
+  Additional Terraform Resources 
+
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#root_block_device 
+  
+  - http://cloud-images.ubuntu.com/locator/ec2/ 
+
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
+
 - [Ansible Documentation](https://docs.ansible.com/)
+
+  Additional Ansible Resources 
+
+  - https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/set_fact_module.html 
+
+  - https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/uri_module.html
+
+  - https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/template_module.html 
+
+- [Get Caller Identity command for Bash](https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html)
+
 - [Mojang Version Manifest API](https://launchermeta.mojang.com/mc/game/version_manifest.json) 
+
 - [Minecraft Server Download](https://www.minecraft.net/en-us/download/server)
+
 - [AWS EC2 Ubuntu AMIs — Canonical](https://ubuntu.com/server/docs/cloud-images/amazon-ec2)
+
 - [Systemd Service Documentation](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
-- [OpenJDK 25 Early Access Builds](https://jdk.java.net/25/)

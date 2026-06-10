@@ -1,3 +1,13 @@
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: I adapted the code snippets in the terraform documentation to create my script.
+# Source URL: https://registry.terraform.io/providers/hashicorp/aws/latest/docs 
+
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: I adapted the code snippets in the terraform documentation (specifically the resources page)to create my script.
+# Source URL: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
+
 resource "aws_vpc" "minecraft_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true

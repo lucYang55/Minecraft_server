@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: Used documentation for get-caller-identity command. Code snippets in the documentation were adapted for code 
+# Source URL: https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html
+
 set -e
 echo "Minecraft AWS Deployment"
 
@@ -25,8 +30,8 @@ AMI_USED=$(terraform output -raw ami_used)
 
 cd ..
 echo ""
-echo "  Instance IP : $PUBLIC_IP"
-echo "  AMI used    : $AMI_USED"
+echo "Instance IP : $PUBLIC_IP"
+echo "AMI used    : $AMI_USED"
 echo ""
 
 echo "Waiting for SSH to become available"

@@ -1,3 +1,18 @@
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: I adapted the code snippets in the terraform documentation to create my script.
+# Source URL: https://registry.terraform.io/providers/hashicorp/aws/latest/docs 
+
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: Amazon EC2 AMI Locator to find the correct filter name pattern for Ubuntu 24.04 and verify the owner ID 
+# Source URL: http://cloud-images.ubuntu.com/locator/ec2/
+
+# Citation for the following script:
+# Date: 06/10/2026
+# Adapted from: terraform documentation to find the correct filter name pattern for Ubuntu 24.04 and verify the owner ID 
+# Source URL: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#root_block_device
+
 # Automatically find the latest Ubuntu 24.04 LTS AMI for the current region
 data "aws_ami" "ubuntu_24_04" {
   most_recent = true
